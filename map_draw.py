@@ -1,20 +1,18 @@
-import pandas as pd
-import matplotlib.pyplot as plt
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+# import matplotlib.pyplot as plt
+import matplotlib.pyplot
 from mas_map import merge_data
 
 
-def draw_map(df_merge):
-    fig, ax = plt.subplots(figsize=(10, 10))
-
-    x_max = df_merge['x'].max()
-    y_max = df_merge['y'].max()
+def draw_map(df_merge) -> tuple[Figure, Axes]:
+    fig, ax = matplotlib.pyplot.subplots(figsize=(10, 10))
     # 그리드 라인
-    ax.set_xticks(range(1, x_max + 1))
-    ax.set_yticks(range(1, y_max + 1))
+    ax.set_xticks(range(1, df_merge['x'].max() + 1))
+    ax.set_yticks(range(1, df_merge['y'].max() + 1))
 
     ax.grid(True)
-    # TODO: 이거 좀 더 확인 필요함 / 운좋게 하나씩 잘려서, 0.5 씩 더해서 된 것일수도 있으니까, set_ylim 함수 역할 알아볼것
-    ax.set_ylim(y_max + 0.5, 0.5)
+    ax.set_ylim(df_merge['y'].max() + .5, .5)
 
     # 구조물 종류별 표시
     # 아파트와 빌딩 - 갈색 원형
@@ -34,26 +32,24 @@ def draw_map(df_merge):
     ax.scatter(construction_sites['x'], construction_sites['y'], color = 'grey', marker = 's', label = 'ConstructionSite', s = 200)
 
     # 레이블, 타이틀 추가
-    ax.set_title('locale map, visualized', fontsize=16)
-    ax.set_xlabel('X coord', fontsize=12)
-    ax.set_ylabel('Y coord', fontsize=12)
+    ax.set_title('locale map, visualized', fontsize = 16)
+    ax.set_xlabel('X coord', fontsize = 12)
+    ax.set_ylabel('Y coord', fontsize = 12)
 
     # 범례
-    ax.legend(fontsize=8, markerscale=.5, borderpad=1, labelspacing=1.5)
-    # ax.invert_yaxis()
+    ax.legend(fontsize = 8, markerscale = .5, borderpad = 1, labelspacing = 1.5)
 
-    # 이미지로 저장
-    plt.savefig('map.png', dpi=300)
-    plt.show()
+    return (fig, ax)
 
 
 def visualize() -> None:
     try:
         df_merge = merge_data()
-        draw_map(df_merge)
+        fig, ax = draw_map(df_merge)
+        fig.savefig('map.png', dpi = 300)
+        matplotlib.pyplot.show()
     except Exception as e:
         print(f'Error: {str(e)}')
-    
 
 
 def main():
