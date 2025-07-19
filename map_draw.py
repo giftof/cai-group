@@ -13,7 +13,7 @@ def draw_map(df_merge):
     ax.set_yticks(range(1, y_max + 1))
 
     ax.grid(True)
-
+    # TODO: 이거 좀 더 확인 필요함 / 운좋게 하나씩 잘려서, 0.5 씩 더해서 된 것일수도 있으니까, set_ylim 함수 역할 알아볼것
     ax.set_ylim(y_max + 0.5, 0.5)
 
     # 구조물 종류별 표시
@@ -39,9 +39,8 @@ def draw_map(df_merge):
     ax.set_ylabel('Y coord', fontsize=12)
 
     # 범례
-    # ax.legend()
     ax.legend(fontsize=8, markerscale=.5, borderpad=1, labelspacing=1.5)
-    ax.invert_yaxis()
+    # ax.invert_yaxis()
 
     # 이미지로 저장
     plt.savefig('map.png', dpi=300)
