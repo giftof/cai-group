@@ -28,6 +28,8 @@ def merge_data() -> pd.DataFrame:
         raise e
     except BaseException as e:
         raise e
+    except:
+        raise ValueError('빵꾸똥꾸')
 
 
 def main():
