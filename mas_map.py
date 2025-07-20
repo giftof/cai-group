@@ -1,9 +1,9 @@
-import pandas as pd
+import pandas
 
 
-def read_file_to_dataframe(path: str, skipinitialspace: bool = True) -> pd.DataFrame:
+def read_file_to_dataframe(path: str, skipinitialspace: bool = True) -> pandas.DataFrame:
     try:
-        data_frame = pd.read_csv(path, skipinitialspace=skipinitialspace)
+        data_frame = pandas.read_csv(path, skipinitialspace=skipinitialspace)
         data_frame.columns = data_frame.columns.str.strip()
     except:
         raise ValueError(f'Error: while read_csv at {path}')
@@ -11,7 +11,7 @@ def read_file_to_dataframe(path: str, skipinitialspace: bool = True) -> pd.DataF
         return data_frame
 
 
-def merge_data() -> pd.DataFrame:
+def merge_data() -> pandas.DataFrame:
     try:
         df_category = read_file_to_dataframe('data/csv/area_category.csv')
         df_struct = read_file_to_dataframe('data/csv/area_struct.csv')

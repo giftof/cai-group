@@ -1,17 +1,19 @@
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
-# import matplotlib.pyplot as plt
 import matplotlib.pyplot
+import pandas
 from mas_map import merge_data
+from typing import Tuple
 
 
-def draw_map(df_merge) -> tuple[Figure, Axes]:
+def draw_map(df_merge: pandas.DataFrame, path: list[Tuple[int, int]] = None) -> tuple[Figure, Axes]:
     fig, ax = matplotlib.pyplot.subplots(figsize=(10, 10))
     # 그리드 라인
     ax.set_xticks(range(1, df_merge['x'].max() + 1))
     ax.set_yticks(range(1, df_merge['y'].max() + 1))
 
     ax.grid(True)
+    ax.set_xlim(.5, df_merge['x'].max() + .5)
     ax.set_ylim(df_merge['y'].max() + .5, .5)
 
     # 구조물 종류별 표시
@@ -36,6 +38,11 @@ def draw_map(df_merge) -> tuple[Figure, Axes]:
     ax.set_xlabel('X coord', fontsize = 12)
     ax.set_ylabel('Y coord', fontsize = 12)
 
+    if path is not None:
+        path_x = [p[0] for p in path]
+        path_y = [p[1] for p in path]
+        ax.plot(path_x, path_y, color='red', linewidth=3, label='Path')
+
     # 범례
     ax.legend(fontsize = 8, markerscale = .5, borderpad = 1, labelspacing = 1.5)
 
@@ -52,7 +59,7 @@ def visualize() -> None:
         print(f'Error: {str(e)}')
 
 
-def main():
+def main() -> None:
     try:
         visualize()
     except Exception as e:
