@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import csv
 
-from mas_map import merge_data
+from caffee_map import merge_data
 from map_draw import draw_map
 
 

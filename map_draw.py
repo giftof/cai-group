@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.axes import Axes
 
-from mas_map import merge_data
+from caffee_map import merge_data
 
 
 def draw_map(df_merge: pd.DataFrame, path: Optional[list[Tuple[int, int]]] = None) -> Tuple[Figure, Axes]:
