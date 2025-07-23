@@ -21,7 +21,7 @@ def astar(df: pd.DataFrame, start: Tuple[int, int], goal: Tuple[int, int]) -> Op
             grid[row['y']][row['x']] = 1
 
     def heuristic(a: Tuple[int, int], b: Tuple[int, int]) -> int:
-        return abs(a[0] - b[0]) + abs(a[1] - b[1])  # 맨해튼 거리
+        return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
     open_list = [(start, 0, heuristic(start, goal))]  # (좌표, g, f)
     came_from = {}
