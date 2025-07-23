@@ -12,11 +12,13 @@ def astar(df: pd.DataFrame, start: Tuple[int, int], goal: Tuple[int, int]) -> Op
     max_x = df['x'].max()
     max_y = df['y'].max()
 
-    # 이동 가능 여부를 나타내는 그리드 생성
-    grid = [[1 for _ in range(max_x + 1)] for _ in range(max_y + 1)]
+    # 모든 칸을 0(막힘)으로 초기화
+    grid = [[0 for _ in range(max_x + 1)] for _ in range(max_y + 1)]
+
+    # df에 있는 좌표 중 ConstructionSite == 0 인 곳만 1(통과 가능)으로 설정
     for _, row in df.iterrows():
-        if row['ConstructionSite'] == 1:
-            grid[row['y']][row['x']] = 0
+        if row['ConstructionSite'] == 0:
+            grid[row['y']][row['x']] = 1
 
     def heuristic(a: Tuple[int, int], b: Tuple[int, int]) -> int:
         return abs(a[0] - b[0]) + abs(a[1] - b[1])  # 맨해튼 거리
@@ -44,7 +46,7 @@ def astar(df: pd.DataFrame, start: Tuple[int, int], goal: Tuple[int, int]) -> Op
             nx, ny = current[0] + dx, current[1] + dy
             neighbor = (nx, ny)
 
-            if not (1 <= nx <= max_x and 1 <= ny <= max_y):
+            if not (0 <= nx <= max_x and 0 <= ny <= max_y):
                 continue
             if grid[ny][nx] == 0 or neighbor in visited:
                 continue
