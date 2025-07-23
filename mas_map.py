@@ -11,7 +11,7 @@ def read_file_to_dataframe(
 ) -> pd.DataFrame:
     '''CSV 파일을 읽고 컬럼 이름의 공백을 제거한 후, 기대하는 컬럼과 타입을 검증합니다.'''
     try:
-        data_frame = pd.read_csv(path, skipinitialspace=skipinitialspace)
+        data_frame = pd.read_csv(path, skipinitialspace = skipinitialspace)
         data_frame.columns = data_frame.columns.str.strip()
 
         # 기대하는 컬럼 확인
@@ -42,18 +42,18 @@ def merge_data() -> pd.DataFrame:
     try:
         df_category = read_file_to_dataframe(
             'data/csv/area_category.csv',
-            expected_columns=['category', 'struct'],
-            column_types={'category': int, 'struct': str}
+            expected_columns = ['category', 'struct'],
+            column_types = {'category': int, 'struct': str}
         )
         df_struct = read_file_to_dataframe(
             'data/csv/area_struct.csv',
-            expected_columns=['x', 'y', 'category', 'area'],
-            column_types={'x': int, 'y': int, 'category': int, 'area': int}
+            expected_columns = ['x', 'y', 'category', 'area'],
+            column_types = {'x': int, 'y': int, 'category': int, 'area': int}
         )
         df_map = read_file_to_dataframe(
             'data/csv/area_map.csv',
-            expected_columns=['x', 'y', 'ConstructionSite'],
-            column_types={'x': int, 'y': int, 'ConstructionSite': int}
+            expected_columns = ['x', 'y', 'ConstructionSite'],
+            column_types = {'x': int, 'y': int, 'ConstructionSite': int}
         )
 
         try:
@@ -63,7 +63,7 @@ def merge_data() -> pd.DataFrame:
 
         df_struct['category'] = df_struct['category'].apply(lambda x: category_map.get(x, x))
 
-        df_merge = df_struct.merge(df_map, on=['x', 'y'], how='left')
+        df_merge = df_struct.merge(df_map, on = ['x', 'y'], how = 'left')
 
         # 병합 후 컬럼 확인
         if 'ConstructionSite' not in df_merge.columns:

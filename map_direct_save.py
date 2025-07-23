@@ -27,7 +27,7 @@ def astar(df: pd.DataFrame, start: Tuple[int, int], goal: Tuple[int, int]) -> Op
 
     while open_list:
         # f 값이 가장 작은 노드 선택
-        current, g_cost, f_cost = min(open_list, key=lambda x: x[2])
+        current, g_cost, f_cost = min(open_list, key = lambda x: x[2])
         open_list.remove((current, g_cost, f_cost))
 
         if current == goal:
@@ -69,7 +69,7 @@ def astar(df: pd.DataFrame, start: Tuple[int, int], goal: Tuple[int, int]) -> Op
 def save_path_to_csv(path: List[Tuple[int, int]]) -> None:
     '''경로 데이터를 CSV 파일로 저장합니다.'''
     try:
-        with open('home_to_cafe.csv', 'w', newline='') as f:
+        with open('home_to_cafe.csv', 'w', newline = '') as f:
             writer = csv.writer(f)
             writer.writerow(['x', 'y'])
             for x, y in path:
@@ -111,7 +111,7 @@ def visualize() -> None:
         print('No valid paths found between start and goal points.')
         return
 
-    shortest_path = min(paths, key=len)
+    shortest_path = min(paths, key = len)
 
     try:
         save_path_to_csv(shortest_path)
@@ -120,7 +120,7 @@ def visualize() -> None:
 
     try:
         fig, ax = draw_map(df_merge, shortest_path)
-        fig.savefig('map_final.png', dpi=300)
+        fig.savefig('map_final.png', dpi = 300)
     except Exception as e:
         print(f'Failed to save or draw map: {e}')
 
